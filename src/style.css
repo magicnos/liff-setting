@@ -64,13 +64,3 @@ h1 {
   color: #444;
   margin: 4px 0;
 }
-
-#userId {
-  font-weight: bold;
-  color: #2b8cff;
-  word-break: break-all;
-  background: #eef4ff;
-  padding: 6px 10px;
-  border-radius: 6px;
-  display: inline-block;
-}
