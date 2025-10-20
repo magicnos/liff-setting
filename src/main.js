@@ -1,27 +1,78 @@
-import './style.css';
+import 'https://static.line-scdn.net/liff/edge/2/sdk.js';
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import {
+  getFirestore,
+  getDoc,
+  doc,
+  updateDoc,
+  deleteField
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
-const LIFF_ID = import.meta.env.VITE_LIFF_ID; // ← .envファイルから取得
 
-async function main() {
-  await liff.init({ liffId: LIFF_ID });
+let db, userId;
+let settingData = {};
 
-  const app = document.querySelector('#app');
 
-  if (!liff.isLoggedIn()) {
-    liff.login();
-    return;
-  }
+// Fires初期化
+async function initFirebase(){
+  const firebaseConfig = {
+    apiKey: "AIzaSyBdp66vY1UQJWQNpUaq_GBd-zcNnZXTXgg",
+    authDomain: "linebot-799ed.firebaseapp.com",
+    projectId: "linebot-799ed",
+  };
 
-  const profile = await liff.getProfile();
-  app.innerHTML = `
-    <h1>こんにちは、${profile.displayName} さん！</h1>
-    <button id="logout">ログアウト</button>
-  `;
+  const app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+  const auth = getAuth();
 
-  document.querySelector('#logout').addEventListener('click', () => {
-    liff.logout();
-    location.reload();
-  });
+  // 匿名ログイン
+  await signInAnonymously(auth);
 }
 
-main().catch(console.error);
+
+// liff初期化
+async function firstLiff(){
+  const liffId = '2008192386-zPDXa2d8';
+  try{
+    // LIFF初期化
+    await liff.init({ liffId });
+
+    // ユーザープロフィール取得
+    const profile = await liff.getProfile();
+    return profile.userId;
+  }catch (error){
+    alert("エラーが起きました。再度開きなおすか、下記のエラー内容をお知らせください。\n" + "LIFF初期化に失敗しました: " + error);
+  }
+}
+
+
+// Firestoreからデータ取得(コレクション/ドキュメント)
+async function getData(path1, path2){
+  const docRef = doc(db, path1, path2);
+  const snap = await getDoc(docRef);
+
+  if (snap.exists()){
+    return snap.data();
+  }else{
+    return null;
+  }
+}
+
+
+
+
+
+// メインの処理
+async function main(){
+  // DB初期化
+  await initFirebase();
+  // liff初期化とuserId取得
+  userId = await firstLiff();
+
+  // 設定状況を取得
+  settingData = await getData(userId, 'absence2');
+}
+
+
+main();
