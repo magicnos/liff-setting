@@ -70,6 +70,12 @@ function onCheckBox(){
 }
 
 
+// userIdを表示
+function setUserId(){
+  document.getElementById("userId").textContent = userId;
+}
+
+
 
 
 // メインの処理
@@ -84,6 +90,9 @@ async function main(){
 
   // チェックボックス有効化
   onCheckBox();
+
+  // userIdを表示
+  setUserId();
 }
 
 
