@@ -60,6 +60,15 @@ async function getData(path1, path2){
 }
 
 
+// チェックボック有効化
+function onCheckBox(){
+  document.querySelectorAll('.chipDays').forEach(chip => {
+    chip.addEventListener('click', () => {
+      chip.classList.toggle('active');
+    });
+  });
+}
+
 
 
 
@@ -71,7 +80,10 @@ async function main(){
   userId = await firstLiff();
 
   // 設定状況を取得
-  settingData = await getData(userId, 'absence2');
+  settingData = await getData(userId, 'setting');
+
+  // チェックボックス有効化
+  onCheckBox();
 }
 
 

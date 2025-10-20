@@ -1,0 +1,8 @@
+.chipDays {
+  display: flex;
+  flex-wrap: wrap; /* 複数行に折り返す */
+  justify-content: center; /* 横中央寄せ */
+  align-items: center; /* 縦中央揃え */
+  gap: 10px; /* 要素間の間隔 */
+  margin-bottom: 25px; /* 下の余白 */
+}
