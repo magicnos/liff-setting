@@ -33,7 +33,7 @@ async function initFirebase(){
 
 // liff初期化
 async function firstLiff(){
-  const liffId = '2008192386-zPDXa2d8';
+  const liffId = '2008322054-bznRynae';
   try{
     // LIFF初期化
     await liff.init({ liffId });
