@@ -85,28 +85,7 @@ async function setRadioButton(){
   radiosAbsenceText.forEach(radio => {
     radio.addEventListener('change', async () => {
       const Ref = doc(db, userId, 'setting');
-      switch (radio.value){
-        case 1:
-          await updateDoc(Ref, { absenceText: 1 });
-          break;
-        case 2:
-          await updateDoc(Ref, { absenceText: 2 });
-          break;
-        case 3:
-          await updateDoc(Ref, { absenceText: 3 });
-          break;
-        case 4:
-          await updateDoc(Ref, { absenceText: 4 });
-          break;
-        case 5:
-          await updateDoc(Ref, { absenceText: 5 });
-          break;
-        case 6:
-          await updateDoc(Ref, { absenceText: 6 });
-          break;
-        default:
-          break;
-      }
+      await updataDoc(Ref, { absenceText: Nmuber(radio.value)});
     });
   });
 
@@ -116,28 +95,7 @@ async function setRadioButton(){
 // 欠時数テキストの表示表示方法ラジオボタンのデフォルトを設定
 function absenceTextDefault(){
   const setting = settingData.absenceText;
-  switch (setting){
-    case 1:
-      document.getElementById("a1").checked = true;
-      break;
-    case 2:
-      document.getElementById("a2").checked = true;
-      break;
-    case 3:
-      document.getElementById("a3").checked = true;
-      break;
-    case 4:
-      document.getElementById("a4").checked = true;
-      break;
-    case 5:
-      document.getElementById("a5").checked = true;
-      break;
-    case 6:
-      document.getElementById("a6").checked = true;
-      break;
-    default:
-      break;
-  }
+  document.getElementById(`a${setting}`).checked = true;
 }
 
 
