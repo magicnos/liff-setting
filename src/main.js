@@ -77,7 +77,6 @@ function setButton(){
       if (!chip.classList.contains('active')){
         const selectedCount = settingData.week.filter(v => v).length;
         if (selectedCount < 5) {
-          alert("通知は最大5日まで選べます");
           chip.classList.add('active');
           settingData.week[dayIndex] = true;
         }
