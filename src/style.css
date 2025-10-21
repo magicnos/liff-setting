@@ -1,3 +1,6 @@
+/* ========================
+   全体設定
+   ========================= */
 body {
   font-family: "Noto Sans JP", system-ui, sans-serif;
   background: #f7f9fc;
@@ -17,8 +20,16 @@ h1 {
   margin-bottom: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
+.notice {
+  font-size: 25px;
+  font-weight: 600;
+  color: #000000;
+}
 
-/* 曜日チップ */
+
+/* ========================
+   通知曜日
+   ========================= */
 .days {
   display: flex;
   flex-wrap: wrap;
@@ -40,12 +51,16 @@ h1 {
   box-shadow: 0 2px 5px rgba(43, 140, 255, 0.4);
 }
 
-/* ラジオボタン */
+
+/* ========================
+   通知時刻
+   ========================= */
 .threshold label {
   display: block;
   margin: 6px 0;
   font-size: 15px;
 }
+
 
 /* 通知時刻 */
 .time label {
@@ -58,7 +73,10 @@ h1 {
   border: 1px solid #d0d7e2;
 }
 
-/* フッターなど */
+
+/* ========================
+   テキストで欠時数を表示する
+   ========================= */
 .level1 {
   font-size: 13px;
   color: #444;

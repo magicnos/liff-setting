@@ -77,6 +77,85 @@ function setUserId(){
 
 
 
+// それぞれのラジオボタンを起動
+async function setRadioButton(){
+
+  // 欠時数テキストの表示表示方法ラジオボタン
+  const radiosAbsenceText = document.querySelectorAll('input[name="absenceText"]');
+  radiosAbsenceText.forEach(radio => {
+    radio.addEventListener('change', async () => {
+      const Ref = doc(db, userId, 'setting');
+      switch (radio.value){
+        case 1:
+          await updateDoc(Ref, { absenceText: 1 });
+          break;
+        case 2:
+          await updateDoc(Ref, { absenceText: 2 });
+          break;
+        case 3:
+          await updateDoc(Ref, { absenceText: 3 });
+          break;
+        case 4:
+          await updateDoc(Ref, { absenceText: 4 });
+          break;
+        case 5:
+          await updateDoc(Ref, { absenceText: 5 });
+          break;
+        case 6:
+          await updateDoc(Ref, { absenceText: 6 });
+          break;
+        default:
+          break;
+      }
+    });
+  });
+
+}
+
+
+// 欠時数テキストの表示表示方法ラジオボタンのデフォルトを設定
+function absenceTextDefault(){
+  const setting = settingData.absenceText;
+  switch (setting){
+    case 1:
+      document.getElementById("a1").checked = true;
+      break;
+    case 2:
+      document.getElementById("a2").checked = true;
+      break;
+    case 3:
+      document.getElementById("a3").checked = true;
+      break;
+    case 4:
+      document.getElementById("a4").checked = true;
+      break;
+    case 5:
+      document.getElementById("a5").checked = true;
+      break;
+    case 6:
+      document.getElementById("a6").checked = true;
+      break;
+    default:
+      break;
+  }
+}
+
+
+
+
+
+// 最初のliffを作成
+function firstLiffBuilder(){
+  // userIdを表示
+  setUserId();
+
+  // それぞれのラジオボタンを起動
+  setRadioButton();
+  // 欠時数テキスト表示方法ラジオボタンのデフォルトを設定
+  absenceTextDefault();
+}
+
+
 
 // メインの処理
 async function main(){
@@ -91,8 +170,8 @@ async function main(){
   // チェックボックス有効化
   onCheckBox();
 
-  // userIdを表示
-  setUserId();
+  // Liffを完成
+  firstLiffBuilder();
 }
 
 
