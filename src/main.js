@@ -74,13 +74,13 @@ function setButton(){
     chip.addEventListener('click', async () => {
       const Ref = doc(db, userId, 'setting');
       if (chip.classList.contains('active')){
-        if (settingData.week.length < 4){
+        if (settingData.week.length < 5){
           chip.classList.toggle('active');
           settingData.week[chip.value] = true;
           await updateDoc(Ref, settingData);
         }
       }else{
-        chip.classList.toggle('chipDays');
+        chip.classList.toggle('active');
         settingData.week[chip.value] = false;
         await updateDoc(Ref, settingData);
       }
