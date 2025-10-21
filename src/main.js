@@ -85,7 +85,7 @@ function setButton(){
         chip.classList.remove('active');
         settingData.week[dayIndex] = false;
       }
-      await updateDoc(Ref, { week: settingData });
+      await updateDoc(Ref, settingData);
     });
   });
 
