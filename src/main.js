@@ -73,17 +73,19 @@ function setButton(){
   document.querySelectorAll('.chipDays').forEach(chip => {
     chip.addEventListener('click', async () => {
       const Ref = doc(db, userId, 'setting');
-      if (chip.classList.contains('active')){
-        if (settingData.week.length < 5){
-          chip.classList.toggle('active');
-          settingData.week[chip.value] = true;
-          await updateDoc(Ref, settingData);
+      const dayIndex = Number(chip.getAttribute('value'));
+      if (!chip.classList.contains('active')){
+        const selectedCount = settingData.week.filter(v => v).length;
+        if (selectedCount < 5) {
+          alert("通知は最大5日まで選べます");
+          chip.classList.add('active');
+          settingData.week[dayIndex] = true;
         }
       }else{
-        chip.classList.toggle('active');
-        settingData.week[chip.value] = false;
-        await updateDoc(Ref, settingData);
+        chip.classList.remove('active');
+        settingData.week[dayIndex] = false;
       }
+      await updateDoc(Ref, { week: settingData });
     });
   });
 
