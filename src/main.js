@@ -73,9 +73,9 @@ function setButton(){
   document.querySelectorAll('.chipDays').forEach(chip => {
     chip.addEventListener('click', async () => {
       const Ref = doc(db, userId, 'setting');
-      if (chip.classList.contains('chipDays')){
+      if (chip.classList.contains('active')){
         if (settingData.week.length < 4){
-          chip.classList.toggle('chipDays');
+          chip.classList.toggle('active');
           settingData.week[chip.value] = true;
           await updateDoc(Ref, settingData);
         }
@@ -102,9 +102,13 @@ function setButton(){
 function setButtonDefault(){
   // 通知曜日チェックボックス
   for (let i = 0; i < 7; i++){
-    const days = settingData.week[i];
-    if (days == true){
-      document.getElementById(`d${i}`).checked = true;
+    const chip = document.getElementById(`d${i}`);
+    const isChecked = settingData.week[i];
+    // いったん全てのchipDaysを消してから再設定する
+    chip.classList.remove('active');
+    // trueならクラスを追加
+    if (isChecked){
+      chip.classList.add('active');
     }
   }
 
