@@ -13,15 +13,15 @@
     <!-- 通知曜日 -->
     <div class="section">
       <h2 class="notice">通知曜日</h2>
-      <h3 class="noticeWeek2">最大4日選べます</h3>
+      <h3 class="noticeWeek2">最大5日選べます</h3>
       <div class="days" id="daysContainer">
-        <div class="chipDays" data-day="mon">月</div>
-        <div class="chipDays" data-day="tue">火</div>
-        <div class="chipDays" data-day="wed">水</div>
-        <div class="chipDays" data-day="thu">木</div>
-        <div class="chipDays" data-day="fri">金</div>
-        <div class="chipDays" data-day="sat">土</div>
-        <div class="chipDays" data-day="sun">日</div>
+        <div class="chipDays" value="1" id="d1">月</div>
+        <div class="chipDays" value="2" id="d2">火</div>
+        <div class="chipDays" value="3" id="d3">水</div>
+        <div class="chipDays" value="4" id="d4">木</div>
+        <div class="chipDays" value="5" id="d5">金</div>
+        <div class="chipDays" value="6" id="d6">土</div>
+        <div class="chipDays" value="0" id="d0">日</div>
       </div>
       <p class="level1">※タップで選択／解除できます</p>
     </div>
@@ -49,23 +49,20 @@
         <label><input type="radio" name="absenceText" value="1" id="a1">前期のみ</label>
         <label><input type="radio" name="absenceText" value="2" id="a2">後期のみ</label>
         <label><input type="radio" name="absenceText" value="3" id="a3">現在の学期のみ</label>
-        <label><input type="radio" name="absenceText" value="4" id="a4">年間総合のみ</label>
+        <label><input type="radio" name="absenceText" value="4" id="a4">年間合計のみ</label>
         <label><input type="radio" name="absenceText" value="5" id="a5">前期、後期</label>
-        <label><input type="radio" name="absenceText" value="6" id="a6">前期、後期、年間総合全て</label>
+        <label><input type="radio" name="absenceText" value="6" id="a6">前期、後期、年間合計、全て</label>
       </div>
     </div>
-
 
     <!-- ユーザー情報 -->
     <div class="section">
       <p class="level1">ユーザーID：</p>
       <p class="level1" id="userId">読み込み中...</p>
-      <p class="level1">
-        ※このユーザーIDは他者に公開しないでください。<br>
-        データが不正に使用される可能性があります。
-      </p>
+      <p class="level1">このユーザーIDは他者に公開しないでください。</p>
     </div>
 
+    <!-- バージョン情報 -->
     <div class="section">
       <p class="level1">Version 2.4.1 (仮)</p>
       <p class="level1">最新の更新内容</p>

@@ -5,7 +5,8 @@ import {
   getDoc,
   doc,
   updateDoc,
-  deleteField
+  deleteField,
+  arrayRemove
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
@@ -60,25 +61,32 @@ async function getData(path1, path2){
 }
 
 
-// チェックボック有効化
-function onCheckBox(){
-  document.querySelectorAll('.chipDays').forEach(chip => {
-    chip.addEventListener('click', () => {
-      chip.classList.toggle('active');
-    });
-  });
-}
-
-
 // userIdを表示
 function setUserId(){
   document.getElementById("userId").textContent = userId;
 }
 
 
-
-// それぞれのラジオボタンを起動
-async function setRadioButton(){
+// それぞれのラジオボタン、チェックボックス起動
+function setButton(){
+  // 通知曜日チェックボックス
+  document.querySelectorAll('.chipDays').forEach(chip => {
+    chip.addEventListener('click', async () => {
+      const Ref = doc(db, userId, 'setting');
+      const isActive = chip.classList.toggle('active');
+      if (isActive){
+        if (await getData(userId, 'setting').week < 4){
+          chip.classList.toggle('active');
+          settingData.week[radio.value] = true;
+          await updateDoc(Ref, { week: settingData.week });
+        }
+      }else{
+        chip.classList.toggle('active');
+        settingData.week[radio.value] = false;
+        await updateDoc(Ref, { week: settingData.week });
+      }
+    });
+  });
 
   // 欠時数テキストの表示表示方法ラジオボタン
   const radiosAbsenceText = document.querySelectorAll('input[name="absenceText"]');
@@ -88,30 +96,36 @@ async function setRadioButton(){
       await updateDoc(Ref, { absenceText: Number(radio.value)});
     });
   });
-
 }
 
 
-// 欠時数テキストの表示表示方法ラジオボタンのデフォルトを設定
-function absenceTextDefault(){
-  const setting = settingData.absenceText;
-  document.getElementById(`a${setting}`).checked = true;
+// それぞれのラジオボタン、チェックボックスのデフォルトを設定
+function setButtonDefault(){
+  // 通知曜日チェックボックス
+  for (let i = 0; i < 7; i++){
+    const days = settingData.week[i];
+    if (days == true){
+      document.getElementById(`d${i}`).checked = true;
+    }
+  }
+
+  // 欠時数テキストの表示表示方法ラジオボタン
+  const absenceText = settingData.absenceText;
+  document.getElementById(`a${absenceText}`).checked = true;
 }
 
 
-
-
-
-// 最初のliffを作成
+// 最初のliff作成
 function firstLiffBuilder(){
   // userIdを表示
   setUserId();
 
-  // それぞれのラジオボタンを起動
-  setRadioButton();
-  // 欠時数テキスト表示方法ラジオボタンのデフォルトを設定
-  absenceTextDefault();
+  // それぞれのラジオボタン、チェックボックス起動
+  setButton();
+  // それぞれのラジオボタン、チェックボックスのデフォルトを設定
+  setButtonDefault();
 }
+
 
 
 
@@ -124,9 +138,6 @@ async function main(){
 
   // 設定状況を取得
   settingData = await getData(userId, 'setting');
-
-  // チェックボックス有効化
-  onCheckBox();
 
   // Liffを完成
   firstLiffBuilder();
