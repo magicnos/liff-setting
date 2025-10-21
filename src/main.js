@@ -73,16 +73,16 @@ function setButton(){
   document.querySelectorAll('.chipDays').forEach(chip => {
     chip.addEventListener('click', async () => {
       const Ref = doc(db, userId, 'setting');
-      if (isActive){
-        if (await getData(userId, 'setting').week < 4){
+      if (chip.classList.contains('active')){
+        if (settingData.week.length < 4){
           chip.classList.toggle('active');
           settingData.week[chip.value] = true;
-          await updateDoc(Ref, { week: settingData });
+          await updateDoc(Ref, settingData);
         }
       }else{
         chip.classList.toggle('active');
         settingData.week[chip.value] = false;
-        await updateDoc(Ref, { week: settingData });
+        await updateDoc(Ref, settingData);
       }
     });
   });
