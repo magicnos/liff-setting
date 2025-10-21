@@ -85,7 +85,7 @@ async function setRadioButton(){
   radiosAbsenceText.forEach(radio => {
     radio.addEventListener('change', async () => {
       const Ref = doc(db, userId, 'setting');
-      await updataDoc(Ref, { absenceText: Nmuber(radio.value)});
+      await updateDoc(Ref, { absenceText: Number(radio.value)});
     });
   });
 
