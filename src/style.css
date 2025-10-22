@@ -37,11 +37,11 @@ h1 {
 .radioButton label {
   display: block; /* 縦並びにする */
   margin-bottom: 5px;
-  font-size: 15px;
+  font-size: 18px;
 }
 /* ラジオボタン全般 */
 input[type="radio"] {
-  vertical-align: baseline;
+  vertical-align: middle;
   margin-right: 3px; /* ボタンとテキストの間隔 */
 }
 
@@ -74,14 +74,6 @@ input[type="radio"] {
 /* ========================
    通知時刻
    ========================= */
-.threshold label {
-  display: block;
-  margin: 6px 0;
-  font-size: 15px;
-}
-
-
-/* 通知時刻 */
 .time label {
   font-weight: bold;
   margin-right: 8px;
@@ -90,6 +82,16 @@ input[type="radio"] {
   padding: 6px 10px;
   border-radius: 8px;
   border: 1px solid #d0d7e2;
+}
+
+
+/* ========================
+   通知欠時数閾値
+   ========================= */
+.threshold label {
+  display: block;
+  margin: 6px 0;
+  font-size: 15px;
 }
 
 

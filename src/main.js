@@ -88,6 +88,14 @@ function setButton(){
     });
   });
 
+  // 通知時間
+  const time = document.getElementById('time');
+  time.addEventListener('change', async () => {
+    settingData.time = time.value;
+    const Ref = doc(db, userId, 'setting');
+    await updateDoc(Ref, { time: time.value});
+  });
+
   // 欠時数テキストの表示表示方法ラジオボタン
   const radiosAbsenceText = document.querySelectorAll('input[name="absenceText"]');
   radiosAbsenceText.forEach(radio => {
@@ -112,6 +120,9 @@ function setButtonDefault(){
       chip.classList.add('active');
     }
   }
+
+  // 通知時間
+  document.getElementById('time').value = settingData.time;
 
   // 欠時数テキストの表示表示方法ラジオボタン
   const absenceText = settingData.absenceText;
