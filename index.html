@@ -13,7 +13,6 @@
     <!-- 通知曜日 -->
     <div class="section">
       <h2 class="notice">通知曜日</h2>
-      <h3 class="noticeWeek2">最大5日選べます</h3>
       <div class="days" id="daysContainer">
         <div class="chipDays" value="1" id="d1">月</div>
         <div class="chipDays" value="2" id="d2">火</div>
@@ -23,7 +22,7 @@
         <div class="chipDays" value="6" id="d6">土</div>
         <div class="chipDays" value="0" id="d0">日</div>
       </div>
-      <p class="level1">※タップで選択／解除できます</p>
+      <p class="level1">最大5日選べます</p>
     </div>
 
     <!-- 通知時刻 -->
@@ -36,16 +35,18 @@
     <!-- 閾値設定 -->
     <div class="section">
       <h2 class="notice">欠時数閾値(半期)</h2>
-      <label><input type="radio" name="threshold" value="1"> 単位数 × 1</label>
-      <label><input type="radio" name="threshold" value="2"> 単位数 × 2</label>
-      <label><input type="radio" name="threshold" value="3"> 単位数 × 3</label>
-      <label><input type="radio" name="threshold" value="4"> 単位数 × 4</label>
+      <div class="radioButton">
+        <label><input type="radio" name="threshold" value="1" id="t1"> 単位数 × 1</label>
+        <label><input type="radio" name="threshold" value="2" id="t2"> 単位数 × 2</label>
+        <label><input type="radio" name="threshold" value="3" id="t3"> 単位数 × 3</label>
+        <label><input type="radio" name="threshold" value="4" id="t4"> 単位数 × 4</label>
+      </div>
     </div>
 
     <!-- 欠時数をテキストで表示の方法 -->
     <div class="section">
       <h2 class="notice">「欠時数をテキストで表示」の表示方法</h2>
-      <div class="absenceText">
+      <div class="radioButton">
         <label><input type="radio" name="absenceText" value="1" id="a1">前期のみ</label>
         <label><input type="radio" name="absenceText" value="2" id="a2">後期のみ</label>
         <label><input type="radio" name="absenceText" value="3" id="a3">現在の学期のみ</label>

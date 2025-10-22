@@ -33,6 +33,17 @@ h1 {
   color: #444;
   margin: 4px 0;
 }
+/* ラジオボタン全般 */
+.radioButton label {
+  display: block; /* 縦並びにする */
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+/* ラジオボタン全般 */
+input[type="radio"] {
+  vertical-align: middle;
+  margin-right: 3px; /* ボタンとテキストの間隔 */
+}
 
 
 /* ========================
@@ -85,11 +96,6 @@ h1 {
 /* ========================
    テキストで欠時数を表示する
    ========================= */
-.absenceText label {
-  display: block; /* 縦並びにする */
-  margin-bottom: 5px;
-  font-size: 15px;
-}
 
 
 /* ========================
