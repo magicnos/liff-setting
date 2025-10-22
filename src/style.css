@@ -37,7 +37,7 @@ h1 {
 .radioButton label {
   display: block; /* 縦並びにする */
   margin-bottom: 5px;
-  font-size: 17px;
+  font-size: 16px;
 }
 /* ラジオボタン全般 */
 input[type="radio"] {
