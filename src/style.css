@@ -13,7 +13,7 @@ h1 {
   font-size: 22px;
   margin-bottom: 20px;
 }
-/* それぞれの項目のブロック */
+/* それぞれの項目ブロック */
 .section {
   background: #fff;
   border-radius: 12px;
@@ -27,7 +27,7 @@ h1 {
   font-weight: 600;
   color: #000000;
 }
-/* 情報の文字 */
+/* 小さめの文字 */
 .level1 {
   font-size: 13px;
   color: #444;
@@ -37,7 +37,7 @@ h1 {
 .radioButton label {
   display: block; /* 縦並びにする */
   margin-bottom: 5px;
-  font-size: 18px;
+  font-size: 17px;
 }
 /* ラジオボタン全般 */
 input[type="radio"] {
@@ -69,37 +69,3 @@ input[type="radio"] {
   border-color: #2b8cff;
   box-shadow: 0 2px 5px rgba(43, 140, 255, 0.4);
 }
-
-
-/* ========================
-   通知時刻
-   ========================= */
-.time label {
-  font-weight: bold;
-  margin-right: 8px;
-}
-#time {
-  padding: 6px 10px;
-  border-radius: 8px;
-  border: 1px solid #d0d7e2;
-}
-
-
-/* ========================
-   通知欠時数閾値
-   ========================= */
-.threshold label {
-  display: block;
-  margin: 6px 0;
-  font-size: 15px;
-}
-
-
-/* ========================
-   テキストで欠時数を表示する
-   ========================= */
-
-
-/* ========================
-   userId
-   ========================= */
