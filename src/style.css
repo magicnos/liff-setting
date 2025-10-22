@@ -41,7 +41,7 @@ h1 {
 }
 /* ラジオボタン全般 */
 input[type="radio"] {
-  vertical-align: middle;
+  vertical-align: baseline;
   margin-right: 3px; /* ボタンとテキストの間隔 */
 }
 
