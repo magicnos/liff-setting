@@ -89,7 +89,7 @@ function setButton(){
   // 通知時間
   const time = document.getElementById('time');
   time.addEventListener('change', async () => {
-    settingData.time = time.value;
+    noticeSettingData.time = time.value;
     const Ref = doc(db, 'users', userId);
     await updateDoc(Ref, { ['noticeSetting.time']: time.value});
   });
