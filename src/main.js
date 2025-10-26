@@ -12,10 +12,10 @@ import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/1
 
 
 let db, userId;
-let settingData = {};
+let noticeSettingData = {}, nomalSettingData = {};
 
 
-// Fires初期化
+// Firestore初期化
 async function initFirebase(){
   const firebaseConfig = {
     apiKey: "AIzaSyBdp66vY1UQJWQNpUaq_GBd-zcNnZXTXgg",
@@ -72,19 +72,19 @@ function setButton(){
   // 通知曜日チェックボックス
   document.querySelectorAll('.chipDays').forEach(chip => {
     chip.addEventListener('click', async () => {
-      const Ref = doc(db, userId, 'setting');
+      const Ref = doc(db, 'users', userId);
       const dayIndex = Number(chip.getAttribute('value'));
       if (!chip.classList.contains('active')){
-        const selectedCount = settingData.week.filter(v => v).length;
+        const selectedCount = noticeSettingData.week.filter(v => v).length;
         if (selectedCount < 5) {
           chip.classList.add('active');
-          settingData.week[dayIndex] = true;
+          noticeSettingData.week[dayIndex] = true;
         }
       }else{
         chip.classList.remove('active');
-        settingData.week[dayIndex] = false;
+        noticeSettingData.week[dayIndex] = false;
       }
-      await updateDoc(Ref, settingData);
+      await updateDoc(Ref, { ['noticeSetting.week']: noticeSettingData.week });
     });
   });
 
@@ -92,16 +92,16 @@ function setButton(){
   const time = document.getElementById('time');
   time.addEventListener('change', async () => {
     settingData.time = time.value;
-    const Ref = doc(db, userId, 'setting');
-    await updateDoc(Ref, { time: time.value});
+    const Ref = doc(db, 'users', userId);
+    await updateDoc(Ref, { ['noticeSetting.time']: time.value});
   });
 
   // 欠時数テキストの表示表示方法ラジオボタン
   const radiosAbsenceText = document.querySelectorAll('input[name="absenceText"]');
   radiosAbsenceText.forEach(radio => {
     radio.addEventListener('change', async () => {
-      const Ref = doc(db, userId, 'setting');
-      await updateDoc(Ref, { absenceText: Number(radio.value)});
+      const Ref = doc(db, 'users', userId);
+      await updateDoc(Ref, { ['nomalSetting.absenceText']: Number(radio.value)});
     });
   });
 }
@@ -112,7 +112,7 @@ function setButtonDefault(){
   // 通知曜日チェックボックス
   for (let i = 0; i < 7; i++){
     const chip = document.getElementById(`d${i}`);
-    const isChecked = settingData.week[i];
+    const isChecked = noticeSettingData.week[i];
     // いったん全てのchipDaysを消してから再設定する
     chip.classList.remove('active');
     // trueならクラスを追加
@@ -122,10 +122,10 @@ function setButtonDefault(){
   }
 
   // 通知時間
-  document.getElementById('time').value = settingData.time;
+  document.getElementById('time').value = noticeSettingData.time;
 
   // 欠時数テキストの表示表示方法ラジオボタン
-  const absenceText = settingData.absenceText;
+  const absenceText = nomalSettingData.absenceText;
   document.getElementById(`a${absenceText}`).checked = true;
 }
 
@@ -152,7 +152,9 @@ async function main(){
   userId = await firstLiff();
 
   // 設定状況を取得
-  settingData = await getData(userId, 'setting');
+  kari = await getData('users', userId);
+  noticeSettingData = kari.noticeSetting;
+  nomalSettingData = kari.nomalSetting;
 
   // Liffを完成
   firstLiffBuilder();
