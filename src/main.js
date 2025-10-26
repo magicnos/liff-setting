@@ -4,9 +4,7 @@ import {
   getFirestore,
   getDoc,
   doc,
-  updateDoc,
-  deleteField,
-  arrayRemove
+  updateDoc
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
@@ -152,7 +150,7 @@ async function main(){
   userId = await firstLiff();
 
   // 設定状況を取得
-  kari = await getData('users', userId);
+  const kari = await getData('users', userId);
   noticeSettingData = kari.noticeSetting;
   nomalSettingData = kari.nomalSetting;
 
