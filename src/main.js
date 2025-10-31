@@ -70,7 +70,6 @@ function setButton(){
   // 通知曜日チェックボックス
   document.querySelectorAll('.chipDays').forEach(chip => {
     chip.addEventListener('click', async () => {
-      const Ref = doc(db, 'users', userId);
       const dayIndex = Number(chip.getAttribute('value'));
       if (!chip.classList.contains('active')){
         const selectedCount = noticeSettingData.week.filter(v => v).length;
@@ -82,7 +81,9 @@ function setButton(){
         chip.classList.remove('active');
         noticeSettingData.week[dayIndex] = false;
       }
-      await updateDoc(Ref, { ['noticeSetting.week']: noticeSettingData.week });
+      noticeSettingData.nextNotice = true;
+      const Ref = doc(db, 'users', userId);
+      await updateDoc(Ref, { noticeSetting: noticeSettingData });
     });
   });
 
@@ -90,8 +91,9 @@ function setButton(){
   const time = document.getElementById('time');
   time.addEventListener('change', async () => {
     noticeSettingData.time = time.value;
+    noticeSettingData.nextNotice = true;
     const Ref = doc(db, 'users', userId);
-    await updateDoc(Ref, { ['noticeSetting.time']: time.value});
+    await updateDoc(Ref, { noticeSetting: noticeSettingData});
   });
 
   // 欠時数テキストの表示表示方法ラジオボタン
