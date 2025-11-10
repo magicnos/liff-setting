@@ -83,7 +83,7 @@ function setButton(){
       }
       const Ref = doc(db, 'users', userId);
       await updateDoc(Ref, { ['noticeSetting.week']: noticeSettingData.week });
-      createTrigger();
+      await createTrigger();
     });
   });
 
@@ -93,7 +93,7 @@ function setButton(){
     noticeSettingData.time = time.value;
     const Ref = doc(db, 'users', userId);
     await updateDoc(Ref, { ['noticeSetting.time']: noticeSettingData.time });
-    createTrigger();
+    await createTrigger();
   });
 
   // 欠時数テキストの表示表示方法ラジオボタン
@@ -131,24 +131,26 @@ function setButtonDefault(){
 
 
 // 次のトリガーを作成するvercelを呼び出す
-function createTrigger(){
+async function createTrigger(){
   const vercelUrl = "https://regular-execution.vercel.app/";
   const payload = {
     userId: userId,
-    action: "createSchedule"
+    action: "createSchedule",
   };
 
-  const options = {
-    method: "post",
-    contentType: "application/json",
-    payload: JSON.stringify(payload)
-  };
+  try {
+    const res = await fetch(vercelUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
 
-  try{
-    const response = UrlFetchApp.fetch(vercelUrl, options);
-    Logger.log("Response: " + response.getContentText());
-  }catch (e){
-    Logger.log("Error calling Vercel: " + e.message);
+    const data = await res.json();
+    console.log("Response from Vercel:", data);
+  } catch (e) {
+    console.error("Error calling Vercel:", e);
   }
 }
 
