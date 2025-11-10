@@ -135,7 +135,6 @@ async function createTrigger(){
   const vercelUrl = "https://regular-execution.vercel.app/";
   const payload = {
     userId: userId,
-    action: "createSchedule",
   };
 
   try {
