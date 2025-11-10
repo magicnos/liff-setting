@@ -81,9 +81,9 @@ function setButton(){
         chip.classList.remove('active');
         noticeSettingData.week[dayIndex] = false;
       }
-      noticeSettingData.nextNotice = true;
       const Ref = doc(db, 'users', userId);
-      await updateDoc(Ref, { noticeSetting: noticeSettingData });
+      await updateDoc(Ref, { ['noticeSetting.week']: noticeSettingData.week });
+      createTrigger();
     });
   });
 
@@ -91,9 +91,9 @@ function setButton(){
   const time = document.getElementById('time');
   time.addEventListener('change', async () => {
     noticeSettingData.time = time.value;
-    noticeSettingData.nextNotice = true;
     const Ref = doc(db, 'users', userId);
-    await updateDoc(Ref, { noticeSetting: noticeSettingData});
+    await updateDoc(Ref, { ['noticeSetting.time']: noticeSettingData.time });
+    createTrigger();
   });
 
   // 欠時数テキストの表示表示方法ラジオボタン
@@ -127,6 +127,29 @@ function setButtonDefault(){
   // 欠時数テキストの表示表示方法ラジオボタン
   const absenceText = nomalSettingData.absenceText;
   document.getElementById(`a${absenceText}`).checked = true;
+}
+
+
+// 次のトリガーを作成するvercelを呼び出す
+function createTrigger(){
+  const vercelUrl = "https://regular-execution.vercel.app/";
+  const payload = {
+    userId: userId,
+    action: "createSchedule"
+  };
+
+  const options = {
+    method: "post",
+    contentType: "application/json",
+    payload: JSON.stringify(payload)
+  };
+
+  try{
+    const response = UrlFetchApp.fetch(vercelUrl, options);
+    Logger.log("Response: " + response.getContentText());
+  }catch (e){
+    Logger.log("Error calling Vercel: " + e.message);
+  }
 }
 
 
